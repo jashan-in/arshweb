@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arshpreet Kaur</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background: url('arsh.png') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            overflow: hidden; /* To hide hearts that pop out of the screen */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.464); 
+            backdrop-filter: blur(5px); 
+            z-index: 0; 
+        }
+
+        .content-box {
+            background-color: rgba(43, 41, 41, 0.9);
+            color: #fff;
+            padding: 20px;
+            width: 300px;
+            margin-right: 215px;
+            text-align: center;
+            border-radius: 8px; 
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+            transition: color 0.3s ease, transform 0.3s ease; /* Add transition for hover effect */
+        }
+
+        h2 {
+            margin: 15px 0;
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease; /* Add transition for hover effect */
+        }
+
+        a {
+            color: #ffffff; 
+            text-decoration: none; 
+            font-size: 1em;
+            display: flex;
+            align-items: center; 
+            gap: 10px; 
+            transition: color 0.3s ease, transform 0.3s ease; /* Add transition for text and logo */
+        }
+
+        a img {
+            width: 36px; 
+            height: auto; 
+            transition: transform 0.3s ease; 
+        }
+
+        a:hover {
+            color: #FFD700; /* Gold color on hover for both text and logo */
+        }
+
+        a:hover img {
+            transform: scale(1.2); /* Scale the logo */
+        }
+
+        a:hover span {
+            color: #FFD700; /* Change the color of the text to gold on hover */
+            transform: scale(1.2); /* Scale the text on hover */
+        }
+
+        a span {
+            transition: transform 0.3s ease; /* Ensure smooth text scaling */
+        }
+
+        /* Heart Animation */
+        .heart {
+            position: absolute;
+            width: 50px; /* Increase size to fit image properly */
+            height: 50px; /* Increase size to fit image properly */
+            background-image: url('heart.png'); /* Heart image */
+            background-size: contain; /* Ensure the heart image is fully visible */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            opacity: 1;
+            animation: pop 0.6s ease-out forwards; /* Increase duration and use ease-out for slow fade */
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Hover effect for h1 and h2 */
+        h1:hover {
+            color: #FFD700; /* Gold color on hover */
+            transform: scale(1.2); /* Scale up the text */
+        }
+
+        h2:hover {
+            color: #FFD700; /* Gold color on hover */
+            transform: scale(1.2); /* Scale up the text */
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="content-box">
+        <h1>Arshpreet Kaur</h1>
+        <h2>
+            <a href="https://www.instagram.com/arshbrar_222?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+                <img src="instalogo.png" alt="Instagram Logo"> <span>Instagram</span>
+            </a>
+        </h2>
+        <h2>
+            <a href="https://snapchat.com/t/JqhXcz36" target="_blank" rel="noopener noreferrer">
+                <img src="Snaplogo.png" alt="Snapchat Logo"> <span>Snapchat</span>
+            </a>
+        </h2>
+    </div>
+
+    <script>
+        // Add heart pop on click
+        document.body.addEventListener('click', function(e) {
+            // Ensure the click is outside the content box
+            if (!e.target.closest('.content-box')) {
+                let heart = document.createElement('div');
+                heart.classList.add('heart');
+
+                // Position the heart where the click occurred
+                heart.style.left = `${e.clientX - 25}px`; // Adjust to center the heart (half of 50px)
+                heart.style.top = `${e.clientY - 25}px`; // Adjust to center the heart (half of 50px)
+
+                // Add the heart to the body
+                document.body.appendChild(heart);
+
+                // Remove the heart after the animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 600); // Heart disappears after 600ms (animation duration)
+            }
+        });
+    </script>
+</body>
+</html>
