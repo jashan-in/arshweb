@@ -137,36 +137,11 @@
             color: #FFD700;
             transform: scale(1.2);
         }
-
-        /* Music Controls */
-        .music-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-
-        #music-toggle {
-            border: none;
-            background: none;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        #music-toggle:hover {
-            color: #FFD700;
-        }
     </style>
 </head>
 <body>
     <!-- Add Background Music -->
-    <audio id="background-music" autoplay loop muted>
+    <audio id="background-music" loop>
         <source src="akhar.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -186,14 +161,17 @@
         </h2>
     </div>
 
-    <!-- Music Controls -->
-    <div class="music-controls">
-        <button id="music-toggle">Pause Music</button>
-    </div>
-
     <script>
-        // Try to unmute the audio automatically as well for some browsers
-        document.getElementById("background-music").muted = false;
+        let musicPlayed = false;
+        const music = document.getElementById('background-music');
+
+        // Play music after first click
+        document.body.addEventListener('click', () => {
+            if (!musicPlayed) {
+                music.play();
+                musicPlayed = true;
+            }
+        });
 
         // Add heart pop on click
         document.body.addEventListener('click', function(e) {
@@ -204,20 +182,6 @@
                 heart.style.top = `${e.clientY - 25}px`;
                 document.body.appendChild(heart);
                 setTimeout(() => heart.remove(), 600);
-            }
-        });
-
-        // Music toggle functionality
-        const music = document.getElementById('background-music');
-        const musicToggle = document.getElementById('music-toggle');
-
-        musicToggle.addEventListener('click', () => {
-            if (music.paused) {
-                music.play();
-                musicToggle.textContent = 'Pause Music';
-            } else {
-                music.pause();
-                musicToggle.textContent = 'Play Music';
             }
         });
     </script>
