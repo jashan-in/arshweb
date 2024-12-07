@@ -45,13 +45,13 @@
         h1 {
             font-size: 2rem;
             margin: 0;
-            transition: color 0.3s ease, transform 0.3s ease; /* Add transition for hover effect */
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         h2 {
             margin: 15px 0;
             font-size: 1.2rem;
-            transition: color 0.3s ease, transform 0.3s ease; /* Add transition for hover effect */
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         a {
@@ -61,7 +61,7 @@
             display: flex;
             align-items: center; 
             gap: 10px; 
-            transition: color 0.3s ease, transform 0.3s ease; /* Add transition for text and logo */
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         a img {
@@ -71,32 +71,31 @@
         }
 
         a:hover {
-            color: #FFD700; /* Gold color on hover for both text and logo */
+            color: #FFD700;
         }
 
         a:hover img {
-            transform: scale(1.2); /* Scale the logo */
+            transform: scale(1.2);
         }
 
         a:hover span {
-            color: #FFD700; /* Change the color of the text to gold on hover */
-            transform: scale(1.2); /* Scale the text on hover */
+            color: #FFD700;
+            transform: scale(1.2);
         }
 
         a span {
-            transition: transform 0.3s ease; /* Ensure smooth text scaling */
+            transition: transform 0.3s ease;
         }
 
-        /* Heart Animation */
         .heart {
             position: absolute;
-            width: 50px; /* Increase size to fit image properly */
-            height: 50px; /* Increase size to fit image properly */
-            background-image: url('heart.png'); /* Heart image */
-            background-size: contain; /* Ensure the heart image is fully visible */
-            background-repeat: no-repeat; /* Prevent repeating the image */
+            width: 50px;
+            height: 50px;
+            background-image: url('heart.png');
+            background-size: contain;
+            background-repeat: no-repeat;
             opacity: 1;
-            animation: pop 0.6s ease-out forwards; /* Increase duration and use ease-out for slow fade */
+            animation: pop 0.6s ease-out forwards;
             pointer-events: none;
             z-index: 10;
         }
@@ -116,21 +115,45 @@
             }
         }
 
-        /* Hover effect for h1 and h2 */
         h1:hover {
-            color: #FFD700; /* Gold color on hover */
-            transform: scale(1.2); /* Scale up the text */
+            color: #FFD700;
+            transform: scale(1.2);
         }
 
         h2:hover {
-            color: #FFD700; /* Gold color on hover */
-            transform: scale(1.2); /* Scale up the text */
+            color: #FFD700;
+            transform: scale(1.2);
+        }
+
+        /* Music Controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        #music-toggle {
+            border: none;
+            background: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #music-toggle:hover {
+            color: #FFD700;
         }
     </style>
 </head>
 <body>
     <!-- Add Background Music -->
-    <audio autoplay loop>
+    <audio id="background-music" autoplay loop muted>
         <source src="akhar.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -150,25 +173,38 @@
         </h2>
     </div>
 
+    <!-- Music Controls -->
+    <div class="music-controls">
+        <button id="music-toggle">Pause Music</button>
+    </div>
+
     <script>
+        // Try to unmute the audio automatically as well for some browsers
+        document.getElementById("background-music").muted = false;
+
         // Add heart pop on click
         document.body.addEventListener('click', function(e) {
-            // Ensure the click is outside the content box
             if (!e.target.closest('.content-box')) {
                 let heart = document.createElement('div');
                 heart.classList.add('heart');
-
-                // Position the heart where the click occurred
-                heart.style.left = `${e.clientX - 25}px`; // Adjust to center the heart (half of 50px)
-                heart.style.top = `${e.clientY - 25}px`; // Adjust to center the heart (half of 50px)
-
-                // Add the heart to the body
+                heart.style.left = `${e.clientX - 25}px`;
+                heart.style.top = `${e.clientY - 25}px`;
                 document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 600);
+            }
+        });
 
-                // Remove the heart after the animation
-                setTimeout(() => {
-                    heart.remove();
-                }, 600); // Heart disappears after 600ms (animation duration)
+        // Music toggle functionality
+        const music = document.getElementById('background-music');
+        const musicToggle = document.getElementById('music-toggle');
+
+        musicToggle.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                musicToggle.textContent = 'Pause Music';
+            } else {
+                music.pause();
+                musicToggle.textContent = 'Play Music';
             }
         });
     </script>
