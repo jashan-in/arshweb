@@ -15,7 +15,20 @@
             background: url('arsh.png') no-repeat center center fixed;
             background-size: cover;
             position: relative;
-            overflow: hidden; /* To hide hearts that pop out of the screen */
+            overflow: hidden;
+            animation: moveBackground 15s ease-in-out infinite; /* Slower movement */
+        }
+
+        @keyframes moveBackground {
+            0% {
+                background-position: center top; /* Start near the top */
+            }
+            50% {
+                background-position: center center; /* Move slightly down to center */
+            }
+            100% {
+                background-position: center top; /* Return to the top */
+            }
         }
 
         .overlay {
